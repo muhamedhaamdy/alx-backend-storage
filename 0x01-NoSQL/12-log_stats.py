@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
+"""Log stats"""
 from pymongo import MongoClient
-'''all logs'''
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     """
     Provides some stats about Nginx logs stored in MongoDB
     """
