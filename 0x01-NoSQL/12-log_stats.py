@@ -5,7 +5,7 @@ from pymongo import MongoClient
 
 if __name__ == '__main__':
     """
-    Nginx logs
+    Provides some stats about Nginx logs stored in MongoDB
     """
     client = MongoClient('mongodb://localhost:27017')
     logs_collection = client.logs.nginx
