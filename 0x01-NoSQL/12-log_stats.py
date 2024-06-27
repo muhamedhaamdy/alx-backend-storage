@@ -14,7 +14,7 @@ if __name__ == '__main__':
     print('Methods:')
     for method in methods:
         n = logs_collection.count_documents({'method': method})
-        print('    method {}: {}'.format(method, n))
+        print('\tmethod {}: {}'.format(method, n))
     status_count = logs_collection.count_documents(
         {"method": "GET", "path": "/status"}
     )
