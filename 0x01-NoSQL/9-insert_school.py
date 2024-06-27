@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-import pymongo
-'''pymongo app'''
+"""Insert a document"""
 
 
 def insert_school(mongo_collection, **kwargs):
     """
-    mongo_collection: pymongo collection object
-    **kwargs: key-value pairs to be inserted in the document
+    mongo_collection: collection object
+    **kwargs: dictionary
 
-    Return: new _id
+    Return: the id of the inserted document 
     """
-    mongo_collection.insert_one(kwargs)
+    return mongo_collection.insert_one(kwargs).inserted_id
