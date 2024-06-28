@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-''' redis application '''
+"""Create a simple redis cache"""
 import redis
 import uuid
-from typing import Callable, Optional, Union
+from typing import Union, Optional, Callable
 from functools import wraps
 
 
@@ -45,9 +45,11 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
-class Cache():
-    ''' this is cahse class '''
+class Cache:
+    """Cache class"""
+
     def __init__(self):
+        """Constructor"""
         self._redis = redis.Redis()
         self._redis.flushdb()
 
@@ -59,26 +61,20 @@ class Cache():
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Optional[Callable]):
-        '''
-            Retrieve data from Redis by key and
-            optionally apply a conversion function.
-        '''
+    def get(self, key: str,
+            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
+        """Get data from redis"""
         data = self._redis.get(key)
         if fn:
             return fn(data)
         return data
 
     def get_str(self, key: str) -> str:
-        '''
-            Retrieve data from Redis by key and decode it as a UTF-8 string.
-        '''
+        """Get string from redis"""
         date = self._redis.get(key).decode('utf-8')
         return date
 
     def get_int(self, key: str) -> int:
-        '''
-            Retrieve data from Redis by key and convert it to an integer.
-        '''
+        """Get integer from redis"""
         date = int(self._redis.get(key).decode('utf-8'))
         return date
