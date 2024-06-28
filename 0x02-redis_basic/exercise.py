@@ -51,6 +51,8 @@ class Cache():
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Store data in redis"""
         key = str(uuid.uuid4())
@@ -71,10 +73,12 @@ class Cache():
         '''
             Retrieve data from Redis by key and decode it as a UTF-8 string.
         '''
-        return self._redis.get(key).decode('utf-8')
+        date = self._redis.get(key).decode('utf-8')
+        return date
 
     def get_int(self, key: str) -> int:
         '''
             Retrieve data from Redis by key and convert it to an integer.
         '''
-        return int(self._redis.get(key).decode('utf-8'))
+        date = int(self._redis.get(key).decode('utf-8'))
+        return date
