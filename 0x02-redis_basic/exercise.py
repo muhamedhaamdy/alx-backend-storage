@@ -23,8 +23,6 @@ class Cache():
             optionally apply a conversion function.
         '''
         data = self._redis.get(key)
-        if not data:
-            return None
         if fn:
             return fn(data)
         return data
@@ -33,10 +31,10 @@ class Cache():
         '''
             Retrieve data from Redis by key and decode it as a UTF-8 string.
         '''
-        return self.get(key, lambda d: d.decode('utf-8'))
+        return self._redis.get(key).decode('utf-8')
 
     def get_int(self, key: str) -> int:
         '''
             Retrieve data from Redis by key and convert it to an integer.
         '''
-        return self.get(key, int)
+        return int(self._redis.get(key).decode('utf-8'))
